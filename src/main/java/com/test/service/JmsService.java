@@ -5,5 +5,7 @@ package com.test.service;
  * @date: 2018/4/25 16:53
  */
 public interface JmsService {
-    String sendMsg(String msg);
+    String sendQueue(String msg);
+
+    String sendTopic(String msg);
 }

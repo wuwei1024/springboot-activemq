@@ -22,9 +22,14 @@ public class JmsServiceImpl implements JmsService {
     private JmsMessagingTemplate jmsMessagingTemplate;
 
     @Override
-    public String sendMsg(String msg) {
+    public String sendQueue(String msg) {
         jmsMessagingTemplate.convertAndSend(queue, msg);
+        return msg + " has been sent to queue successfully!";
+    }
+
+    @Override
+    public String sendTopic(String msg) {
         jmsMessagingTemplate.convertAndSend(topic, msg);
-        return msg + " has been sent successfully!";
+        return msg + " has been sent to topic successfully!";
     }
 }

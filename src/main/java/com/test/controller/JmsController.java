@@ -12,8 +12,13 @@ public class JmsController {
     @Autowired
     JmsService jmsService;
 
-    @RequestMapping("/sendMsg")
-    public String sendMsg(@RequestParam("msg") String msg) {
-        return jmsService.sendMsg(msg);
+    @RequestMapping("/sendQueue")
+    public String sendQueue(@RequestParam("msg") String msg) {
+        return jmsService.sendQueue(msg);
+    }
+
+    @RequestMapping("/sendTopic")
+    public String sendTopic(@RequestParam("msg") String msg) {
+        return jmsService.sendTopic(msg);
     }
 }
