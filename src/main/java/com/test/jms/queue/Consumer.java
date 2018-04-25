@@ -1,36 +1,37 @@
-package com.test.topic;
+package com.test.jms.queue;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
 
 import javax.jms.*;
 
 /**
- * 持久化的订阅者，可以接受离线消息
+ * 消费者
  */
 public class Consumer {
-    private static final String URL = "tcp://localhost:61616";
-    private static final String TOPIC_NAME = "topic-name";
-    private static final String CLIENT_ID = "client_01";
+    /**
+     * 中间件地址
+     */
+    private final static String URL = "tcp://localhost:61616";
+    /**
+     * 中间件队列名，与生产者的一致
+     */
+    private final static String QUEUE_NAME = "queue-name";
 
     public static void main(String[] args) throws JMSException {
         // 1. 创建ConnectionFactory
         ConnectionFactory factory = new ActiveMQConnectionFactory(URL);
         // 2. 创建Connection
         Connection connection = factory.createConnection();
-        //客户端ID,持久订阅需要设置
-        connection.setClientID(CLIENT_ID);
         // 3. 启动连接
         connection.start();
         // 4. 创建会话
         Session session = connection.createSession(Boolean.FALSE, Session.AUTO_ACKNOWLEDGE);
-        // 5. 创建一个主题
-        Topic topic = session.createTopic(TOPIC_NAME);
+        // 5. 创建一个队列
+        Queue queue = session.createQueue(QUEUE_NAME);
         // 6. 创建一个消费者
-        //MessageConsumer consumer = session.createConsumer(dest);
-        // 创建持久订阅, 指定客户端ID
-        MessageConsumer consumer = session.createDurableSubscriber(topic, CLIENT_ID);
+        MessageConsumer consumer = session.createConsumer(queue);
         // 7. 创建一个监听器
-        consumer.setMessageListener(message -> {
+        consumer.setMessageListener((Message message) -> {
             TextMessage msg = (TextMessage) message;
             try {
                 System.out.println("接收消息为：" + msg.getText());

@@ -1,4 +1,4 @@
-package com.test.jmsTemplate;
+package com.test.jms.template;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsMessagingTemplate;
