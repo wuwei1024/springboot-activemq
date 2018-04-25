@@ -8,10 +8,12 @@ import javax.jms.*;
  * 生产者
  */
 public class Producer {
+    /**
+     * ActiveMQ服务器地址
+     */
     private final static String URL = "tcp://localhost:61616";
     /**
-     * 中间件队列名
-     * 参考：https://blog.csdn.net/zcl_love_wx/article/details/78406416
+     * 队列名
      */
     private final static String QUEUE_NAME = "queue-name";
 
@@ -25,9 +27,9 @@ public class Producer {
         // 4. 创建会话
         Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
         // 5. 创建一个目标
-        Destination dest = session.createQueue(QUEUE_NAME);
+        Queue queue = session.createQueue(QUEUE_NAME);
         // 6. 创建一个生产者
-        MessageProducer producer = session.createProducer(dest);
+        MessageProducer producer = session.createProducer(queue);
         for (int i = 0; i < 10; i++) {
             // 7. 创建消息
             TextMessage msg = session.createTextMessage("消息" + i);

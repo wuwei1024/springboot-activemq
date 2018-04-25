@@ -5,7 +5,7 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 import javax.jms.*;
 
 /**
- * 发布者
+ * 发布者，持久化模式发布消息
  */
 public class Producer {
     private final static String URL = "tcp://localhost:61616";
@@ -20,10 +20,12 @@ public class Producer {
         connection.start();
         // 4. 创建会话
         Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-        // 5. 创建一个目标【与队列模式的区别就在这里，相当于发布一个主题】
-        Destination dest = session.createTopic(TOPIC_NAME);
+        // 5. 创建一个主题
+        Topic topic = session.createTopic(TOPIC_NAME);
         // 6. 创建一个生产者
-        MessageProducer producer = session.createProducer(dest);
+        MessageProducer producer = session.createProducer(topic);
+        // 发送消息时用使用持久模式
+        producer.setDeliveryMode(DeliveryMode.PERSISTENT);
         for (int i = 0; i < 10; i++) {
             // 7. 创建消息
             TextMessage msg = session.createTextMessage("消息" + i);

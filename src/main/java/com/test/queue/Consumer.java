@@ -26,10 +26,10 @@ public class Consumer {
         connection.start();
         // 4. 创建会话
         Session session = connection.createSession(Boolean.FALSE, Session.AUTO_ACKNOWLEDGE);
-        // 5. 创建一个目标
-        Destination dest = session.createQueue(QUEUE_NAME);
+        // 5. 创建一个队列
+        Queue queue = session.createQueue(QUEUE_NAME);
         // 6. 创建一个消费者
-        MessageConsumer consumer = session.createConsumer(dest);
+        MessageConsumer consumer = session.createConsumer(queue);
         // 7. 创建一个监听器
         consumer.setMessageListener((Message message) -> {
             TextMessage msg = (TextMessage) message;

@@ -56,10 +56,6 @@ public class ActiveMqConfig {
     public JmsListenerContainerFactory<?> jmsListenerContainerQueue(ActiveMQConnectionFactory connectionFactory) {
         DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
         factory.setConnectionFactory(connectionFactory);
-        //设置连接数
-        factory.setConcurrency("2");
-        //重连间隔时间
-        factory.setRecoveryInterval(1000L);
         return factory;
     }
 
@@ -71,10 +67,6 @@ public class ActiveMqConfig {
         DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
         factory.setConnectionFactory(connectionFactory);
         factory.setPubSubDomain(true);
-        //设置连接数
-        factory.setConcurrency("2");
-        //重连间隔时间
-        factory.setRecoveryInterval(1000L);
         return factory;
     }
 }
