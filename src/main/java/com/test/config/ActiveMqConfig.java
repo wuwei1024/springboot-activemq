@@ -67,6 +67,9 @@ public class ActiveMqConfig {
         DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
         factory.setConnectionFactory(connectionFactory);
         factory.setPubSubDomain(true);
+//        factory.setSubscriptionDurable(true);
+//        factory.setAutoStartup(true);
+//        factory.setClientId("client_01");
         return factory;
     }
 }
